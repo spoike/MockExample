@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
 
 namespace MockExample.BL.Tests
@@ -116,6 +117,20 @@ namespace MockExample.BL.Tests
             // ASSERT
             _mockedOrderView.Verify(view => view.ShowReceipt(order), Times.Never());
             _mockedOrderView.Verify(view => view.AlertIsEmpty());
+        }
+
+        [Test]
+        public void WhenExceptionIsRaisedInRepoShouldAlertThatTheOrderDidNotGetSaved()
+        {
+            // ARRANGE
+            var order = GivenOrderWithRows();
+            _mockedOrderRepository.Setup(mock => mock.Store(order)).Throws<Exception>();
+
+            // ACT
+            _orderHandler.Submit(order);
+
+            // ASSERT
+            _mockedOrderView.Verify(view => view.AlertNoSave());
         }
 
     }

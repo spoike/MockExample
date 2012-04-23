@@ -4,5 +4,6 @@ namespace MockExample.BL
     {
         void ShowReceipt(Order o);
         void AlertIsEmpty();
+        void AlertNoSave();
     }
 }

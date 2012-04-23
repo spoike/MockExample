@@ -1,4 +1,6 @@
-﻿namespace MockExample.BL
+﻿using System;
+
+namespace MockExample.BL
 {
     /// <summary>
     /// Business logic class that handles orders
@@ -18,14 +20,21 @@
 
         public void Submit(Order order)
         {
-            if (0 != order.OrderRows.Count)
+            try
             {
-                OrderRepository.Store(order);
-                OrderPrinter.Print(order);
-                OrderView.ShowReceipt(order);
-            } else
+                if (0 != order.OrderRows.Count)
+                {
+                    OrderRepository.Store(order);
+                    OrderPrinter.Print(order);
+                    OrderView.ShowReceipt(order);
+                } else
+                {
+                    OrderView.AlertIsEmpty();
+                }
+            } 
+            catch (Exception)
             {
-                OrderView.AlertIsEmpty();
+                OrderView.AlertNoSave();
             }
         }
     }
