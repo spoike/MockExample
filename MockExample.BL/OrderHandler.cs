@@ -14,6 +14,7 @@
 
         public void Submit(Order order)
         {
+            OrderRepository.Store(order);
         }
     }
 }
