@@ -5,9 +5,15 @@
     /// </summary>
     public class OrderHandler
     {
+        public IOrderRepository OrderRepository { get; set; }
+
         public Order NewOrder()
         {
             return new Order();
+        }
+
+        public void Submit(Order order)
+        {
         }
     }
 }

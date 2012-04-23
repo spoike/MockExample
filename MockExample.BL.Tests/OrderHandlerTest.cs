@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 
 namespace MockExample.BL.Tests
 {
@@ -6,12 +7,17 @@ namespace MockExample.BL.Tests
     public class OrderHandlerTest
     {
 
+        // SUT
         private OrderHandler _orderHandler;
 
+        // Mocks
+        private Mock<IOrderRepository> _mockedOrderRepository;
+            
         [SetUp]
         public void SetUp()
         {
             _orderHandler = new OrderHandler();
+            _mockedOrderRepository = new Mock<IOrderRepository>();
         }
 
         [Test]
@@ -44,13 +50,16 @@ namespace MockExample.BL.Tests
             // ARRANGE
             var order = _orderHandler.NewOrder();
             // Arrange the orderhandler to use a mock of IOrderRepository
+            _orderHandler.OrderRepository = _mockedOrderRepository.Object;
 
             // ACT
             // Submit order through _orderHandler
+            _orderHandler.Submit(order);
 
             // ASSERT
             // Assert that OrderHandler object has saved it to the database
             // via the IOrderRepository interface
+            _mockedOrderRepository.Verify(orderRepo => orderRepo.Store(order));
         }
 
     }
