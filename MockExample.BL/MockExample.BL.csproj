@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOrderPrinter.cs" />
+    <Compile Include="IOrderRepository.cs" />
+    <Compile Include="IOrderView.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderHandler.cs" />
     <Compile Include="OrderRow.cs" />
